@@ -24,8 +24,8 @@ export const CheckboxFilterGroup: React.FC<React.PropsWithChildren<Props>> = (
         defaultItems,
         limit = 5,
         searchInputPlaceholder = 'Поиск...',
-        onChange,
-        defaultValue,
+        /*onChange,
+        defaultValue,*/
         className,
     }
 ) => {

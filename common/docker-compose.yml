@@ -1,0 +1,37 @@
+services:
+  web-site-api:
+    build:
+      context: ../src/WebSiteAPI
+      dockerfile: Dockerfile
+    container_name: web-site-api
+    ports:
+      - "5081:5214"
+    environment:
+      HTTP_PORT: "5214"
+
+  web-site-api-db:
+    image: postgres:latest
+    container_name: web-site-api-db
+    environment:
+      - POSTGRES_DB=web-site-api
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5431:5432"
+    volumes:
+      - web-site-api-db:/var/lib/postgresql/data
+
+  front:
+    build:
+      context: ../front
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://host.docker.internal:5081
+    depends_on:
+      - web-site-api
+
+volumes:
+  web-site-api-db:
