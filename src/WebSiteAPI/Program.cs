@@ -1,7 +1,11 @@
 using System.Net;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using WebSiteAPI;
 
+namespace WebSiteAPI;
+
+/// <summary>
+/// Стартовая точка приложения
+/// </summary>
 public static class Program
 {
     public static void Main(string[] args)
@@ -23,4 +27,3 @@ public static class Program
             }));
     }
 }
-         

@@ -1,31 +1,33 @@
 ﻿
-namespace Store.API.Models;
+namespace WebSiteAPI.Models;
 
 /// <summary>
 /// Продукт магазина
 /// </summary>
-public class Product
+public class Product : BaseEntity
 {
-    /// <summary>
-    /// Id продукта
-    /// </summary>
-    public Guid Id { get; set; }
-    
     /// <summary>
     /// Наименование продукта
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// Цена продукта
+    /// URL изображения продукта
     /// </summary>
-    public decimal Price { get; set; }
+    public string ImageUrl { get; set; }
 
     /// <summary>
-    /// Количество продуктов
+    /// Id Ингредиентов продукта
     /// </summary>
-    public int Stock { get; set; }
-    
-    //Переделать под объект
-    public int Locations { get; set; }   
+    public List<Ingredient> Ingredients { get; set; }
+
+    /// <summary>
+    /// Элементы продукта
+    /// </summary>
+    public List<ProductItem> ProductItems { get; set; }
+
+    /// <summary>
+    /// Id категории
+    /// </summary>
+    public Guid CategoryId { get; set; }
 }

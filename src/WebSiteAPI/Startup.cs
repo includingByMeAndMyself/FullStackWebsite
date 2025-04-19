@@ -1,19 +1,30 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Store.API.DataAccess;
+using WebSiteAPI.DataAccess;
 
 namespace WebSiteAPI;
 
+/// <summary>
+/// 
+/// </summary>
 public class Startup
 {
     private IConfiguration Configuration { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="configuration"></param>
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="services"></param>
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
@@ -45,6 +56,11 @@ public class Startup
         });
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="env"></param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
@@ -70,7 +86,6 @@ public class Startup
         }
 
         app.UseRouting();
-
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

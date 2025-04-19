@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Store.API.Models;
+using WebSiteAPI.Models;
 
-namespace Store.API.DataAccess.ModelsConfigurations;
+namespace WebSiteAPI.DataAccess.ModelsConfigurations;
 
+/// <summary>
+/// 
+/// </summary>
 public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Products");
@@ -16,16 +20,26 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired()
             .HasMaxLength(256);
 
-        builder.Property(p => p.Price)
-            .HasColumnType("decimal(18,2)")
-            .HasPrecision(18, 2);
+        builder.Property(p => p.ImageUrl)
+            .HasMaxLength(512)
+            .IsRequired();
 
-        builder.Property(p => p.Stock)
-            .HasDefaultValue(0)
+        builder.Property(p => p.CategoryId)
+            .IsRequired();
+
+        builder.Property(p => p.CreatedAt)
+            .IsRequired();
+
+        builder.Property(p => p.UpdatedAt)
             .IsRequired();
         
-        builder.Property(p => p.Locations)
-            .HasDefaultValue(0)
-            .IsRequired();
+        builder.HasOne<Category>()
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(p => p.Ingredients)
+            .WithMany(i => i.Products)
+            .UsingEntity(j => j.ToTable("ProductIngredients"));
     }
 }

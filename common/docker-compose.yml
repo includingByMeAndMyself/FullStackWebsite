@@ -11,15 +11,15 @@ services:
 
   web-site-api-db:
     image: postgres:latest
-    container_name: web-site-api-db
+    container_name: web-site-db
     environment:
-      - POSTGRES_DB=web-site-api
+      - POSTGRES_DB=web-site-db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5431:5432"
     volumes:
-      - web-site-api-db:/var/lib/postgresql/data
+      - web-site-db:/var/lib/postgresql/data
 
   front:
     build:
@@ -34,4 +34,4 @@ services:
       - web-site-api
 
 volumes:
-  web-site-api-db:
+  web-site-db:
